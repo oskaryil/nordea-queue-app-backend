@@ -15,7 +15,5 @@ COPY . /app/
 
 EXPOSE 4000
 
-RUN ["yarn", "build"]
-
-CMD ["pm2", "start", "dist/index.bundle.js", "--no-daemon", "--watch"]
-
+CMD ["yarn", "build"]
+CMD ["pm2", "start", "processes.json", "--no-daemon"]
