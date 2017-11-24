@@ -17,5 +17,5 @@ EXPOSE 4000
 
 RUN ["yarn", "build"]
 
-CMD ["pm2", "start", "processes.json", "--no-daemon"]
+CMD ["pm2", "start", "dist/index.bundle.js", "--no-daemon --watch -i 0 --name api"]
 
