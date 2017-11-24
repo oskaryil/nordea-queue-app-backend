@@ -15,6 +15,7 @@ COPY . /app/
 
 EXPOSE 4000
 
-CMD ["yarn", "build"]
+RUN ["yarn", "build"]
+
 CMD ["pm2", "start", "processes.json", "--no-daemon"]
 
