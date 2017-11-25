@@ -36,22 +36,9 @@ const UserSchema = new Schema(
       trim: true,
       unique: true,
     },
-    accounts: [
-      {
-        country: String,
-        accountNumber: {
-          value: String,
-          _type: String,
-        },
-        currency: String,
-        ownerName: String,
-        product: String,
-        accountType: String,
-        availableBalance: String,
-        bookedBalance: String,
-        valueDatedBalance: String,
-      },
-    ],
+    accounts: {
+      type: Array,
+    },
     password: {
       type: String,
       required: [true, 'Password is required!'],
@@ -68,6 +55,11 @@ const UserSchema = new Schema(
         type: String,
         minlength: 8,
       },
+    },
+    phoneNumber: {
+      type: Number,
+      minlength: 8,
+      maxlength: 15,
     },
   },
   { timestamps: true },
