@@ -15,11 +15,9 @@ const getAccounts = async (req, res, next) => {
     const userId = req.user._id; // Takes out user id
 
     // Finds user and updates accounts information
-    const user = await User.findByIdAndUpdate(
-      userId,
-      { $set: accounts },
-      { new: true },
-    );
+    const user = await User.findByIdAndUpdate(userId, {
+      $set: { accounts },
+    });
     if (!user) {
       return res.status(400).send({ err: 'user._id does not exist' }); // If no user is found this is the error
     }
