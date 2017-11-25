@@ -8,7 +8,7 @@ let defaultUser;
 const masterUser = {
   email: 'test@gmail.com',
   username: 'test!',
-  password: 'password1'
+  password: 'password1',
 };
 
 describe('Model: User', () => {
@@ -19,7 +19,7 @@ describe('Model: User', () => {
 
   beforeEach(() => {
     defaultUser = {
-      ...masterUser
+      ...masterUser,
     };
   });
 
@@ -36,7 +36,7 @@ describe('Model: User', () => {
       const user = new User(defaultUser);
       let validation = user.validateSync();
       expect(validation.errors.email.message).to.equal(
-        `${defaultUser.email} is not a valid email!`
+        `${defaultUser.email} is not a valid email!`,
       );
       user.email = 'test@gmail.com';
       validation = user.validateSync();
@@ -48,7 +48,7 @@ describe('Model: User', () => {
       const user = new User(defaultUser);
       let validation = user.validateSync();
       expect(validation.errors.password.message).to.equal(
-        'Password need to be longer!'
+        'Password need to be longer!',
       );
       user.password = 'password';
       validation = user.validateSync();
