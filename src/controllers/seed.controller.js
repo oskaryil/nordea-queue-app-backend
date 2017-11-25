@@ -5,7 +5,6 @@
 import HTTPStatus from 'http-status';
 
 import User from '../models/user.model';
-import Post from '../models/post.model';
 import { userSeed, deleteUserSeed } from '../seeds/user.seed';
 
 export async function seedUsers(req, res, next) {
@@ -42,7 +41,7 @@ export async function clearSeedUsers(req, res, next) {
  */
 export async function clearAll(req, res, next) {
   try {
-    await Promise.all([User.remove(), Post.remove()]);
+    await Promise.all([User.remove()]);
 
     return res.status(HTTPStatus.OK).send('All collections clear');
   } catch (e) {

@@ -6,8 +6,8 @@ import { Router } from 'express';
 import HTTPStatus from 'http-status';
 
 import UserRoutes from './user.routes';
-import PostRoutes from './post.routes';
 import SeedRoutes from './seed.routes';
+import AccountRoutes from './account.routes';
 
 import APIError from '../services/error';
 
@@ -20,7 +20,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
 
 routes.use('/users', UserRoutes);
-routes.use('/posts', PostRoutes);
+routes.use('/users/account', AccountRoutes);
 
 if (isDev || isTest) {
   routes.use('/seeds', SeedRoutes);
