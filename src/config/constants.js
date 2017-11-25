@@ -1,5 +1,9 @@
 require('dotenv').config();
 
+/*
+ TODO:
+  account is not going to take in bankToken, we need to update this.
+ */
 const WHITELIST = {
   users: {
     create: ['email', 'username', 'password'],
