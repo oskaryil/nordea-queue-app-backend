@@ -67,10 +67,8 @@ export async function create(req, res, next) {
 }
 
 export const sendVerificationCode = async (req, res, next) => {
-  req.session.hello = 'hello';
   try {
     const data = filteredBody(req.body, constants.WHITELIST.users.create);
-    console.log(data);
     let { phoneNumber } = data;
     if (phoneNumber.length === 13 && phoneNumber.substring(0, 3) === '+46') {
       phoneNumber = `${phoneNumber.substring(0, 3)}${phoneNumber.substring(
@@ -102,7 +100,6 @@ export const sendVerificationCode = async (req, res, next) => {
 export const createUserFromVerificationCode = async (req, res, next) => {
   try {
     const { verificationCode } = req.body;
-    console.log(req.session.verificationCode);
     if (verificationCode === req.session.verificationCode) {
       // delete req.session.verificationCode;
       const user = await User.create({ phoneNumber: req.session.phoneNumber });
