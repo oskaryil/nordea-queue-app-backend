@@ -80,7 +80,7 @@ UserSchema.methods = {
   toJSON() {
     return {
       _id: this._id,
-      phoneNumber: this.phoneNumber
+      phoneNumber: this.phoneNumber,
     };
   },
 };

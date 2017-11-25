@@ -17,7 +17,11 @@ routes.post(
   UserController.sendVerificationCode,
 );
 
-routes.post('/verifycode', validate(UserController.validation.verificationCode), UserController.createUserFromVerificationCode);
+routes.post(
+  '/verifycode',
+  validate(UserController.validation.verificationCode),
+  UserController.createUserFromVerificationCode,
+);
 
 routes.post(
   '/login',

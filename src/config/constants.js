@@ -7,7 +7,7 @@ require('dotenv').config();
 const WHITELIST = {
   users: {
     create: ['phoneNumber'],
-    verifyCode: ['verificationCode']
+    verifyCode: ['verificationCode'],
   },
   account: {
     get: ['bankToken'],
