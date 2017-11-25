@@ -1,12 +1,11 @@
 require('dotenv').config();
 
 const WHITELIST = {
-  posts: {
-    create: ['title', 'text'],
-    update: ['title', 'text'],
-  },
   users: {
     create: ['email', 'username', 'password'],
+  },
+  account: {
+    get: ['bankToken'],
   },
 };
 
