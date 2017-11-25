@@ -10,7 +10,7 @@ let defaultUser;
 const masterUser = {
   email: 'test@gmail.com',
   username: 'test!',
-  password: 'password1',
+  password: 'password1'
 };
 
 describe('Model: User', () => {
@@ -21,7 +21,7 @@ describe('Model: User', () => {
 
   beforeEach(() => {
     defaultUser = {
-      ...masterUser,
+      ...masterUser
     };
   });
 
@@ -38,7 +38,7 @@ describe('Model: User', () => {
       const user = new User(defaultUser);
       let validation = user.validateSync();
       expect(validation.errors.email.message).to.equal(
-        `${defaultUser.email} is not a valid email!`,
+        `${defaultUser.email} is not a valid email!`
       );
       user.email = 'test@gmail.com';
       validation = user.validateSync();
@@ -50,7 +50,7 @@ describe('Model: User', () => {
       const user = new User(defaultUser);
       let validation = user.validateSync();
       expect(validation.errors.password.message).to.equal(
-        'Password need to be longer!',
+        'Password need to be longer!'
       );
       user.password = 'password';
       validation = user.validateSync();
@@ -102,22 +102,6 @@ describe('Model: User', () => {
     it('should not return password', () => {
       const jsonUser = testUser.toAuthJSON();
       expect(jsonUser).to.not.haveOwnProperty('password');
-    });
-  });
-
-  describe('favorites', () => {
-    describe('#posts()', async () => {
-      const post = await Post.create(
-        PostFactory.generate({ author: testUser._id }),
-      );
-      await testUser._favorites.posts(post._id);
-      it('should add post id if not already there', () => {
-        expect(testUser.favorites.posts.length).to.equal(1);
-      });
-      it('should remove post id if already there', async () => {
-        await testUser._favorites.posts(post._id);
-        expect(testUser.favorites.posts.length).to.equal(1);
-      });
     });
   });
 });
