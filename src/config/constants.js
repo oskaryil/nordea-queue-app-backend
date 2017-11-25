@@ -28,6 +28,8 @@ const prodConfig = {
 const defaultConfig = {
   PORT: process.env.PORT || 3000,
   RAVEN_ID: process.env.RAVEN_ID,
+  SMS_API_USERNAME: process.env.SMS_API_USERNAME,
+  SMS_API_PASSWORD: process.env.SMS_API_PASSWORD,
   WHITELIST,
 };
 
