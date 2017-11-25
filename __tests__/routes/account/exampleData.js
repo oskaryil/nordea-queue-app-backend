@@ -41,33 +41,3 @@ export const accounts = [
     _links: []
   }
 ];
-
-export const singleAccount = {
-  _id: 'FI6593857450293470-EUR',
-  country: 'FI',
-  accountNumber: {
-    value: 'FI6593857450293470',
-    _type: 'IBAN'
-  },
-  currency: 'EUR',
-  ownerName: 'Oy Company AB',
-  product: 'SHEKKITILI',
-  accountType: 'Current',
-  availableBalance: '6701.31',
-  bookedBalance: '6701.31',
-  valueDatedBalance: '6701.31',
-  bank: {
-    name: 'Nordea',
-    bic: 'NDEAFIHH',
-    country: 'FI'
-  },
-  status: 'OPEN',
-  creditLimit: '100',
-  latestTransactionBookingDate: '2017-11-25',
-  _links: [
-    {
-      rel: 'transactions',
-      href: '/v2/accounts/FI6593857450293470-EUR/transactions'
-    }
-  ]
-};
