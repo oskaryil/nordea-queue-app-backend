@@ -30,3 +30,5 @@ mongoose.connection
   .on('error', e => {
     throw e;
   });
+
+export default mongoose.connection;

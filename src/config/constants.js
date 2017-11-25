@@ -6,7 +6,8 @@ require('dotenv').config();
  */
 const WHITELIST = {
   users: {
-    create: ['email', 'username', 'password'],
+    create: ['phoneNumber'],
+    verifyCode: ['verificationCode']
   },
   account: {
     get: ['bankToken'],
@@ -35,6 +36,7 @@ const defaultConfig = {
   SMS_API_PASSWORD: process.env.SMS_API_PASSWORD,
   NORDEA_CLIENT_ID: process.env.NORDEA_CLIENT_ID,
   NORDEA_CLIENT_SECRET: process.env.NORDEA_CLIENT_SECRET,
+  SESSION_SECRET: process.env.SESSION_SECRET,
   WHITELIST,
 };
 

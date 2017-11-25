@@ -104,9 +104,11 @@
     "body-parser": "^1.17.1",
     "chalk": "^2.1.0",
     "compression": "^1.7.0",
+    "connect-mongo": "^2.0.0",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
+    "express-session": "^1.15.6",
     "express-status-monitor": "^1.0.0",
     "express-validation": "^1.0.2",
     "express-winston": "^2.4.0",
@@ -124,6 +126,7 @@
     "pretty-error": "^2.1.1",
     "raven": "^2.1.2",
     "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "slug": "^0.9.1",
     "winston": "^2.3.1"
   }
