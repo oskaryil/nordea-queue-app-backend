@@ -13,7 +13,7 @@ RUN yarn global add pm2
 
 COPY . /app/
 
-EXPOSE 4000
+EXPOSE 3000
 
 CMD ["yarn", "build"]
 CMD ["pm2", "start", "processes.json", "--no-daemon"]
