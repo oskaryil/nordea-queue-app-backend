@@ -13,6 +13,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import session from 'express-session';
 import expressStatusMonitor from 'express-status-monitor';
+import cookieParser from 'cookie-parser';
 
 import winstonInstance from './winston';
 import constants from './constants';
@@ -27,6 +28,7 @@ export default app => {
   app.use(compression());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(cookieParser());
   app.use(
     session({
       secret: constants.SESSION_SECRET,
@@ -39,7 +41,13 @@ export default app => {
   );
   app.use(passport.initialize());
   app.use(helmet());
-  app.use(cors());
+  app.use(
+    cors({
+      origin: ['http://localhost:8080'],
+      methods: ['GET', 'POST'],
+      credentials: true, // enable set cookie
+    }),
+  );
   app.use(expressStatusMonitor());
   app.use(methodOverride());
   if (isDev && !isTest) {
