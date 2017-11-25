@@ -11,8 +11,8 @@ class Customers {
     const customers = this.customers.filter(customer => customer.room === room);
     return customers.length;
   }
-  resolveUser(id) {
-    const customer = this.getUser(id);
+  resolveCustomer(id) {
+    const customer = this.getCustomer(id);
 
     if (customer) {
       this.customers = this.customers.filter(current => current.id !== id);
@@ -22,6 +22,17 @@ class Customers {
   }
   getCustomer(id) {
     return this.customers.filter(customer => customer.id === id)[0];
+  }
+  getNumber(room, id) {
+    const place = this.customers.findIndex(i => i.id === id) + 1;
+    return place;
+    // let inc = 0;
+    // for (const customer of this.customers) {
+    //   inc++;
+    //   if (customer.id === id) {
+    //     return inc;
+    //   }
+    // }
   }
   getCustomerList(room) {
     const customers = this.customers.filter(customer => customer.room === room);

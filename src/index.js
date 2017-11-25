@@ -24,14 +24,17 @@ io.on('connection', socket => {
   console.log('New customer in in the queue');
   io.emit('test', 'hello');
 
-  socket.on('join', (query, callback) => {
-    socket.join(query.room);
-    socket.addCustomer(socket.id, query.room);
+  socket.on('join', (param, callback) => {
+    socket.join(param);
 
+    customers.resolveCustomer(socket.id);
+    customers.addCustomer(socket.id, param);
+
+    io.to(param).emit('updateCustomerCount', customers.customersCount(param));
     io
-      .to(query.room)
-      .emit('updateCustomerList', customers.customersCount(query.room));
-    socket.emit('newMessage', customers.customersCount(query.room));
+      .to(socket.id)
+      .emit('getCurrentNumber', customers.getNumber(param, socket.id));
+    // socket.emit('newMessage', customers.customersCount(param));
     callback();
   });
 
@@ -46,6 +49,16 @@ io.on('connection', socket => {
       io
         .to(customer.room)
         .emit('updateCustomerCount', customers.customersCount(customer.room));
+    }
+  });
+  socket.on('disconnect', () => {
+    const customer = customers.resolveCustomer(socket.id);
+
+    if (customer) {
+      socket.emit(
+        'getCurrentNumber',
+        customers.getNumber(customer.room, socket.id),
+      );
     }
   });
 });
