@@ -99,6 +99,7 @@
     "webpack-sources": "1.0.1"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.17.1",
     "chalk": "^2.1.0",
