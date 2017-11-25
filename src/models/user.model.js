@@ -5,9 +5,13 @@ import { hashSync, compareSync } from 'bcrypt-nodejs';
 import jwt from 'jsonwebtoken';
 import uniqueValidator from 'mongoose-unique-validator';
 
-import Post from './post.model';
 import constants from '../config/constants';
 
+/*
+  TODO:
+    See how the accessToken should get handeled, local and nordea
+    Add required to accessToken in nordea
+ */
 const UserSchema = new Schema(
   {
     email: {
@@ -32,6 +36,22 @@ const UserSchema = new Schema(
       trim: true,
       unique: true,
     },
+    accounts: [
+      {
+        country: String,
+        accountNumber: {
+          value: String,
+          _type: String,
+        },
+        currency: String,
+        ownerName: String,
+        product: String,
+        accountType: String,
+        availableBalance: String,
+        bookedBalance: String,
+        valueDatedBalance: String,
+      },
+    ],
     password: {
       type: String,
       required: [true, 'Password is required!'],
@@ -43,13 +63,11 @@ const UserSchema = new Schema(
         },
       },
     },
-    favorites: {
-      posts: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'Post',
-        },
-      ],
+    nordea: {
+      accessToken: {
+        type: String,
+        minlength: 8,
+      },
     },
   },
   { timestamps: true },
@@ -74,43 +92,6 @@ UserSchema.methods = {
    *
    * @public
    */
-  _favorites: {
-    /**
-     * Favorite a post or unfavorite if already here
-     *
-     * @param {String} postId - _id of the post like
-     * @returns {Promise}
-     */
-    async posts(postId) {
-      try {
-        if (this.favorites.posts.indexOf(postId) >= 0) {
-          this.favorites.posts.remove(postId);
-          await Post.decFavoriteCount(postId);
-        } else {
-          await Post.incFavoriteCount(postId);
-          this.favorites.posts.push(postId);
-        }
-
-        return this.save();
-      } catch (err) {
-        return err;
-      }
-    },
-
-    /**
-     * Check if post is favorite by current user.
-     *
-     * @param {String} postId - _id of the post
-     * @returns {Boolean} isFavorite - post is favorite by current user
-     */
-    isPostIsFavorite(postId) {
-      if (this.favorites.posts.indexOf(postId) >= 0) {
-        return true;
-      }
-
-      return false;
-    },
-  },
   /**
    * Authenticate the user
    *
