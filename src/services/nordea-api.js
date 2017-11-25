@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 /*
   TODO:
@@ -7,31 +7,29 @@
     Uncomment things, it's only for eslint
  */
 export const apiCall = async (route, method) => {
-  // const BASIC_URL = 'https://api.hackathon.developer.nordeaopenbanking.com/v2/';
-  //   return new Promise((resolve, reject) = {
-  //
-  //   switch (method) {
-  //     case 'post':
-  //       try {
-  //         const body = await axios.post(`${BASIC_URL + route}`);
-  //         resolve(body);
-  //       } catch (e) {
-  //         reject(e);
-  //       }
-  //
-  //     case 'get':
-  //       try {
-  //         const body = await axios.get(`${BASIC_URL + route}`);
-  //         resolve(body);
-  //       } catch (e) {
-  //         reject(e);
-  //       }
-  //     default:
-  //   }
-  // }
-  // );
+  const BASIC_URL = 'https://api.hackathon.developer.nordeaopenbanking.com/v2/';
+  return new Promise(async (resolve, reject) => {
+    switch (method) {
+      case 'post':
+        try {
+          const body = await axios.post(`${BASIC_URL + route}`);
+          resolve(body);
+        } catch (e) {
+          reject(e);
+        }
+        break;
 
-  // below code is only to make eslint happy :)
-  const meth = method;
-  return meth;
+      case 'get':
+        try {
+          const body = await axios.get(`${BASIC_URL + route}`);
+          resolve(body);
+        } catch (e) {
+          reject(e);
+        }
+
+        break;
+      default:
+        return 0;
+    }
+  });
 };
