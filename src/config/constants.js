@@ -28,6 +28,8 @@ const prodConfig = {
 const defaultConfig = {
   PORT: process.env.PORT || 3000,
   RAVEN_ID: process.env.RAVEN_ID,
+  NORDEA_CLIENT_ID: process.env.NORDEA_CLIENT_ID,
+  NORDEA_CLIENT_SECRET: process.env.NORDEA_CLIENT_SECRET,
   WHITELIST,
 };
 
