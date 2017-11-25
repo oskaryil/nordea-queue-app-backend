@@ -23,7 +23,11 @@ export default app => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(passport.initialize());
   app.use(helmet());
-  app.use(cors());
+  app.use(
+    cors({
+      credentials: true,
+    }),
+  );
   app.use(expressStatusMonitor());
   app.use(methodOverride());
   if (isDev && !isTest) {
