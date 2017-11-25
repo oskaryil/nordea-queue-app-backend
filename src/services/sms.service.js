@@ -4,9 +4,7 @@ import constants from '../config/constants';
 
 export const sendSMS = async (from, to, message) => {
   try {
-    const {
-      response
-    } = await request.post('https://api.46elks.com/a1/SMS', {
+    const { response } = await request.post('https://api.46elks.com/a1/SMS', {
       auth: {
         user: constants.SMS_API_USERNAME,
         pass: constants.SMS_API_PASSWORD,
@@ -22,7 +20,7 @@ export const sendSMS = async (from, to, message) => {
   } catch (err) {
     if (err) {
       // eslint-disable-next-line no-console
-      //console.error(err);
+      console.error(err);
     } else {
       // eslint-disable-next-line no-console
       console.log('Success!');

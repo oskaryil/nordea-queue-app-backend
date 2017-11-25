@@ -13,14 +13,16 @@ import { sendSMS } from '../services/sms.service';
 export const validation = {
   create: {
     body: {
-      phoneNumber: Joi.string().min(9).required()
-    }
+      phoneNumber: Joi.string()
+        .min(9)
+        .required(),
+    },
   },
   verificationCode: {
     body: {
-      verificationCode: Joi.string().required()
-    }
-  }
+      verificationCode: Joi.string().required(),
+    },
+  },
 };
 
 /**
@@ -68,12 +70,12 @@ export const sendVerificationCode = async (req, res, next) => {
   try {
     const data = filteredBody(req.body, constants.WHITELIST.users.create);
     let { phoneNumber } = data;
-    //if (phoneNumber.length === 13 && phoneNumber.substring(0, 3) === '+46') {
-      //phoneNumber = `${phoneNumber.substring(0, 3)}${phoneNumber.substring(
-        //4,
-        //phoneNumber.length,
-      //)}`;
-    //}
+    if (phoneNumber.length === 13 && phoneNumber.substring(0, 3) === '+46') {
+      phoneNumber = `${phoneNumber.substring(0, 3)}${phoneNumber.substring(
+        4,
+        phoneNumber.length,
+      )}`;
+    }
     const user = await User.findOne({ phoneNumber });
     if (user)
       return res

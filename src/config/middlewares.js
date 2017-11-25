@@ -14,7 +14,6 @@ import cors from 'cors';
 import session from 'express-session';
 import expressStatusMonitor from 'express-status-monitor';
 
-
 import winstonInstance from './winston';
 import constants from './constants';
 import mongooseConnection from './database';
@@ -35,8 +34,8 @@ export default app => {
       resave: true,
       cookie: { secure: false },
       maxAge: new Date(Date.now() + 9000000),
-      store: new mongoStore({ mongooseConnection: mongooseConnection })
-    })
+      store: new mongoStore({ mongooseConnection }),
+    }),
   );
   app.use(passport.initialize());
   app.use(helmet());
