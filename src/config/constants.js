@@ -12,6 +12,9 @@ const WHITELIST = {
   account: {
     get: ['bankToken'],
   },
+  nordea: {
+    auth: ['accessCode'],
+  },
 };
 
 const devConfig = {

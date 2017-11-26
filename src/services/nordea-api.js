@@ -1,4 +1,6 @@
 import axios from 'axios';
+import request from 'request-promise';
+import constants from '../config/constants';
 
 /*
   TODO:
@@ -40,12 +42,22 @@ export const getAccessToken = async accessCode => {
       code: accessCode,
       redirect_uri: 'http://localhost:8080/nordeacallback',
     };
-    const { data } = await axios.post(
+    const {
+      response,
+    } = await request.post(
       'https://api.hackathon.developer.nordeaopenbanking.com/v1/authentication/access_token',
-      reqData,
+      {
+        form: reqData,
+        headers: {
+          'X-IBM-Client-Id': constants.NORDEA_CLIENT_ID,
+          'X-IBM-Client-Secret': constants.NORDEA_CLIENT_SECRET,
+        },
+      },
     );
-    return data;
+    console.log(response);
+    return response;
   } catch (err) {
+    console.log(err.response);
     throw err;
   }
 };
