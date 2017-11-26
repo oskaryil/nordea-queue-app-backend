@@ -33,3 +33,19 @@ export const apiCall = async (route, method) => {
     }
   });
 };
+
+export const getAccessToken = async accessCode => {
+  try {
+    const reqData = {
+      code: accessCode,
+      redirect_uri: 'http://localhost:8080/nordeacallback',
+    };
+    const { data } = await axios.post(
+      'https://api.hackathon.developer.nordeaopenbanking.com/v1/authentication/access_token',
+      reqData,
+    );
+    return data;
+  } catch (err) {
+    throw err;
+  }
+};
