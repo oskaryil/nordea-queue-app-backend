@@ -1,8 +1,8 @@
 {
   "apps": [
     {
-      "name": "nodejs-api-boilerplate",
-      "script": "./dist",
+      "name": "Nordea Queue Api",
+      "script": "./dist/index.bundle.js",
       "merge_logs": true,
       "max_restarts": 20,
       "instances": "max",
