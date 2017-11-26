@@ -129,6 +129,7 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "slug": "^0.9.1",
+    "socket.io": "^2.0.4",
     "winston": "^2.3.1"
   }
 }
