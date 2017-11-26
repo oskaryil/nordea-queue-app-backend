@@ -26,6 +26,7 @@ const UserSchema = new Schema(
       type: String,
       required: [true, 'Phone number is required'],
       minLength: [9, 'Phone number must be longer.'],
+      unique: [true, 'That phone number already exists'],
     },
   },
   { timestamps: true },
