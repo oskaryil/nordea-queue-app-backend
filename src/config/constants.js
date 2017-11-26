@@ -13,7 +13,7 @@ const WHITELIST = {
     get: ['bankToken'],
   },
   nordea: {
-    auth: ['accessCode'],
+    auth: ['accessCode', 'redirect_uri'],
   },
 };
 

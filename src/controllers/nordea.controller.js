@@ -17,7 +17,6 @@ export const nordeaAuth = async (req, res, next) => {
   try {
     const data = filteredBody(req.body, constants.WHITELIST.nordea.auth);
     const accessToken = await getAccessToken(data.accessCode);
-    console.log(accessToken);
 
     await User.findOneAndUpdate(
       { _id: req.user._id },
