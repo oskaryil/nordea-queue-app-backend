@@ -5,9 +5,9 @@ import { apiCall } from './nordea-api';
     use nordea-api.js service to create api calls
  */
 // eslint-disable-next-line
-export const fetchAccounts = access_token => {
+export const fetchAccounts = async access_token => {
   const URI = '/accounts';
-  const accounts = apiCall('get', URI, access_token);
+  const accounts = await apiCall('get', URI, access_token);
   // eslint-disable-next-line no-unused-vars
   return new Promise((resolve, reject) => {
     resolve(accounts);

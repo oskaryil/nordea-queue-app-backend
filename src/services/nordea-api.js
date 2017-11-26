@@ -9,7 +9,7 @@ import constants from '../config/constants';
     Uncomment things, it's only for eslint
  */
 export const apiCall = async (route, method) => {
-  const BASIC_URL = 'https://api.hackathon.developer.nordeaopenbanking.com/v2/';
+  const BASIC_URL = 'https://api.hackathon.developer.nordeaopenbanking.com/v2';
   return new Promise(async (resolve, reject) => {
     switch (method) {
       case 'post':
@@ -23,8 +23,13 @@ export const apiCall = async (route, method) => {
 
       case 'get':
         try {
-          const body = await axios.get(`${BASIC_URL + route}`);
-          resolve(body);
+          const response = await request.get(`${BASIC_URL + route}`, {
+            headers: {
+              'X-IBM-Client-Id': constants.NORDEA_CLIENT_ID,
+              'X-IBM-Client-Secret': constants.NORDEA_CLIENT_SECRET,
+            },
+          });
+          resolve(response);
         } catch (e) {
           reject(e);
         }
@@ -42,15 +47,17 @@ export const getAccessToken = async accessCode => {
       code: accessCode,
       redirect_uri: 'http://localhost:8080/nordeacallback',
     };
-    const response = await request.post('https://api.hackathon.developer.nordeaopenbanking.com/v1/authentication/access_token',
- {
-      form: reqData,
-      method: 'post',
-      headers: {
-        'X-IBM-Client-Id': constants.NORDEA_CLIENT_ID,
-        'X-IBM-Client-Secret': constants.NORDEA_CLIENT_SECRET
-      }
-    });
+    const response = await request.post(
+      'https://api.hackathon.developer.nordeaopenbanking.com/v1/authentication/access_token',
+      {
+        form: reqData,
+        method: 'post',
+        headers: {
+          'X-IBM-Client-Id': constants.NORDEA_CLIENT_ID,
+          'X-IBM-Client-Secret': constants.NORDEA_CLIENT_SECRET,
+        },
+      },
+    );
     return JSON.parse(response).access_token;
   } catch (err) {
     console.log(err.response);
