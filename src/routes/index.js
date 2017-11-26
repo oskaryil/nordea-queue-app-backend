@@ -8,6 +8,7 @@ import HTTPStatus from 'http-status';
 import UserRoutes from './user.routes';
 import SeedRoutes from './seed.routes';
 import AccountRoutes from './account.routes';
+import NordeaRoutes from './nordea.routes';
 
 import APIError from '../services/error';
 
@@ -21,6 +22,7 @@ const isTest = process.env.NODE_ENV === 'test';
 
 routes.use('/users', UserRoutes);
 routes.use('/account', AccountRoutes);
+routes.use('/nordea', NordeaRoutes);
 
 if (isDev || isTest) {
   routes.use('/seeds', SeedRoutes);
