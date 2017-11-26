@@ -11,7 +11,9 @@ import User from '../models/user.model';
  */
 const getAccounts = async (req, res, next) => {
   try {
-    const accounts = await accountService.fetchAccounts(); // Fetches accounts with account-info service
+    const accounts = await accountService.fetchAccounts(
+      req.user.nordea.accessToken,
+    ); // Fetches accounts with account-info service
     const userId = req.user._id; // Takes out user id
 
     // Finds user and updates accounts information
@@ -42,7 +44,10 @@ const getSingleAccount = async (req, res, next) => {
   }
 
   try {
-    const account = await accountService.fetchSingleAccount(accountId);
+    const account = await accountService.fetchSingleAccount(
+      accountId,
+      req.user.nordea.accessToken,
+    );
     return res.status(200).send(account); // send the single account
   } catch (e) {
     next(e);
