@@ -8,11 +8,18 @@ import compression from 'compression';
 import passport from 'passport';
 import expressWinston from 'express-winston';
 import methodOverride from 'method-override';
+import MongoStore from 'connect-mongo';
 import helmet from 'helmet';
 import cors from 'cors';
+import session from 'express-session';
 import expressStatusMonitor from 'express-status-monitor';
+import cookieParser from 'cookie-parser';
 
 import winstonInstance from './winston';
+import constants from './constants';
+import mongooseConnection from './database';
+
+const mongoStore = MongoStore(session);
 
 const isTest = process.env.NODE_ENV === 'test';
 const isDev = process.env.NODE_ENV === 'development';
@@ -21,11 +28,24 @@ export default app => {
   app.use(compression());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(cookieParser());
+  app.use(
+    session({
+      secret: constants.SESSION_SECRET,
+      saveUninitialized: true,
+      resave: true,
+      cookie: { secure: false },
+      maxAge: new Date(Date.now() + 9000000),
+      store: new mongoStore({ mongooseConnection }),
+    }),
+  );
   app.use(passport.initialize());
   app.use(helmet());
   app.use(
     cors({
-      credentials: true,
+      origin: ['http://localhost:8080'],
+      methods: ['GET', 'POST'],
+      credentials: true, // enable set cookie
     }),
   );
   app.use(expressStatusMonitor());

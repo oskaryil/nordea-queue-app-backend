@@ -6,7 +6,8 @@ require('dotenv').config();
  */
 const WHITELIST = {
   users: {
-    create: ['email', 'username', 'password'],
+    create: ['phoneNumber'],
+    verifyCode: ['verificationCode'],
   },
   account: {
     get: ['bankToken'],
@@ -31,8 +32,11 @@ const prodConfig = {
 const defaultConfig = {
   PORT: process.env.PORT || 3000,
   RAVEN_ID: process.env.RAVEN_ID,
+  SMS_API_USERNAME: process.env.SMS_API_USERNAME,
+  SMS_API_PASSWORD: process.env.SMS_API_PASSWORD,
   NORDEA_CLIENT_ID: process.env.NORDEA_CLIENT_ID,
   NORDEA_CLIENT_SECRET: process.env.NORDEA_CLIENT_SECRET,
+  SESSION_SECRET: process.env.SESSION_SECRET,
   WHITELIST,
 };
 
