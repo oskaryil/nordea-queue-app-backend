@@ -21,7 +21,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
 
 routes.use('/users', UserRoutes);
-routes.use('/users/account', AccountRoutes);
+routes.use('/account', AccountRoutes);
 routes.use('/nordea', NordeaRoutes);
 
 if (isDev || isTest) {

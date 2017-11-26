@@ -124,6 +124,7 @@
     "pretty-error": "^2.1.1",
     "raven": "^2.1.2",
     "slug": "^0.9.1",
+    "socket.io": "^2.0.4",
     "winston": "^2.3.1"
   }
 }
