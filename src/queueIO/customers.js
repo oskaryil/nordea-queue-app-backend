@@ -1,6 +1,7 @@
 class Customers {
   constructor() {
     this.customers = [];
+    this.highest = null;
   }
   addCustomer(id, room) {
     const customer = { id, room };
@@ -17,14 +18,16 @@ class Customers {
     if (customer) {
       this.customers = this.customers.filter(current => current.id !== id);
     }
-
     return customer;
   }
   getCustomer(id) {
     return this.customers.filter(customer => customer.id === id)[0];
   }
-  getNumber(room, id) {
+  getNumber(id) {
     const place = this.customers.findIndex(i => i.id === id) + 1;
+    if (place === 1) {
+      return 'Your turn';
+    }
     return place;
     // let inc = 0;
     // for (const customer of this.customers) {

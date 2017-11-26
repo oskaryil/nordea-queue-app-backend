@@ -30,10 +30,7 @@ io.on('connection', socket => {
     customers.resolveCustomer(socket.id);
     customers.addCustomer(socket.id, param);
 
-    io.to(param).emit('updateCustomerCount', customers.customersCount(param));
-    io
-      .to(socket.id)
-      .emit('getCurrentNumber', customers.getNumber(param, socket.id));
+    io.to(socket.id).emit('getCurrentNumber', customers.getNumber(socket.id));
     // socket.emit('newMessage', customers.customersCount(param));
     callback();
   });
@@ -48,17 +45,17 @@ io.on('connection', socket => {
     if (customer) {
       io
         .to(customer.room)
-        .emit('updateCustomerCount', customers.customersCount(customer.room));
+        .emit('updateCustomerCount', customers.getNumber(socket.id));
     }
   });
   socket.on('disconnect', () => {
     const customer = customers.resolveCustomer(socket.id);
-
     if (customer) {
-      socket.emit(
-        'getCurrentNumber',
-        customers.getNumber(customer.room, socket.id),
-      );
+      console.log(socket.id);
+      Object.keys(io.sockets.sockets).forEach(id => {
+        console.log('ID:', id); // socketId
+        io.to(id).emit('getCurrentNumber', customers.getNumber(id));
+      });
     }
   });
 });
