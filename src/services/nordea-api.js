@@ -1,4 +1,3 @@
-import axios from 'axios';
 import request from 'request-promise';
 import constants from '../config/constants';
 
@@ -8,37 +7,42 @@ import constants from '../config/constants';
     Fix the promise because it's not right
     Uncomment things, it's only for eslint
  */
-export const apiCall = async (route, method) => {
+// eslint-disable-next-line
+export const apiCall = async (route, method, access_token) => {
   const BASIC_URL = 'https://api.hackathon.developer.nordeaopenbanking.com/v2';
-  return new Promise(async (resolve, reject) => {
-    switch (method) {
-      case 'post':
-        try {
-          const body = await axios.post(`${BASIC_URL + route}`);
-          resolve(body);
-        } catch (e) {
-          reject(e);
-        }
-        break;
+  switch (method) {
+    case 'post':
+      try {
+        const response = await request.post(`${BASIC_URL}${route}`, {
+          headers: {
+            access_token,
+            'X-IBM-Client-Id': constants.NORDEA_CLIENT_ID,
+            'X-IBM-Client-Secret': constants.NORDEA_CLIENT_SECRET,
+          },
+        });
+        return response;
+      } catch (e) {
+        throw e;
+      }
 
-      case 'get':
-        try {
-          const response = await request.get(`${BASIC_URL + route}`, {
-            headers: {
-              'X-IBM-Client-Id': constants.NORDEA_CLIENT_ID,
-              'X-IBM-Client-Secret': constants.NORDEA_CLIENT_SECRET,
-            },
-          });
-          resolve(response);
-        } catch (e) {
-          reject(e);
-        }
+    case 'get':
+      try {
+        const response = await request.get(`${BASIC_URL}${route}`, {
+          headers: {
+            'X-IBM-Client-Id': constants.NORDEA_CLIENT_ID,
+            'X-IBM-Client-Secret': constants.NORDEA_CLIENT_SECRET,
+            access_token,
+          },
+        });
 
-        break;
-      default:
-        return 0;
-    }
-  });
+        return response;
+      } catch (e) {
+        throw e;
+      }
+
+    default:
+      break;
+  }
 };
 
 export const getAccessToken = async accessCode => {
@@ -60,7 +64,6 @@ export const getAccessToken = async accessCode => {
     );
     return JSON.parse(response).access_token;
   } catch (err) {
-    console.log(err.response);
     throw err;
   }
 };
