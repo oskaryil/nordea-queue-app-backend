@@ -1,4 +1,4 @@
-import * as account from '../services/account-info';
+import * as accountService from '../services/account-info';
 import User from '../models/user.model';
 /*
   TODO:
@@ -11,7 +11,7 @@ import User from '../models/user.model';
  */
 const getAccounts = async (req, res, next) => {
   try {
-    const accounts = await account.fetchAccounts(); // Fetches accounts with account-info service
+    const accounts = await accountService.fetchAccounts(); // Fetches accounts with account-info service
     const userId = req.user._id; // Takes out user id
 
     // Finds user and updates accounts information
@@ -27,4 +27,26 @@ const getAccounts = async (req, res, next) => {
   }
 };
 
-export { getAccounts };
+const getSingleAccount = async (req, res, next) => {
+  const { accountId } = req.params || req.header; // extract accountId
+  const accountsArray = req.user.accounts; // get the accounts array to later iterate
+  // See if the account._id provided is actually real
+  let accountExist; // later assigned a boolean value
+  for (const accountObj of accountsArray) {
+    if (accountObj._id === accountId) {
+      accountExist = true; // accountExist is now true because it does exist
+    }
+  }
+  if (!accountExist) {
+    return res.status(400).send({ err: 'accountId does not exist' }); // if accountExist is false then this errror message gets passed
+  }
+
+  try {
+    const account = await accountService.fetchSingleAccount(accountId);
+    return res.status(200).send(account); // send the single account
+  } catch (e) {
+    next(e);
+  }
+};
+
+export { getAccounts, getSingleAccount };
